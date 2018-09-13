@@ -37,8 +37,6 @@ export class Router extends Component<IRouterProps> {
         this.onLocationChange();
     }
 
-    // public getElement = () => this.element;
-
     private async onLocationChange() {
         const currentLocation = LocationService.GetPath();
         if (currentLocation === this.lastLocation) {
@@ -46,7 +44,9 @@ export class Router extends Component<IRouterProps> {
         }
         this.lastLocation = currentLocation;
 
-        const newRoutes: IRouteType[] = this.props.allowMultiple ? this.props.routes.filter((r) => r.isAvailable(this.lastLocation)) : [this.props.routes.find((r) => r.isAvailable(this.lastLocation)) || {} as IRouteType];
+        const newRoutes: IRouteType[] = this.props.allowMultiple ?
+            this.props.routes.filter((r) => r.isAvailable(this.lastLocation)) :
+            [this.props.routes.find((r) => r.isAvailable(this.lastLocation))].filter((r) => r !== undefined) as IRouteType[];
         const newRouteNames = newRoutes.map((r) => r.name).join(";");
         if (newRouteNames === this.lastRouteNames) {
             return;
@@ -55,7 +55,7 @@ export class Router extends Component<IRouterProps> {
 
         this.innerHTML = "";
 
-        const newComponents = newRoutes.map(async (newRoute) => {
+        const newComponentsAsync = newRoutes.map(async (newRoute) => {
             if (newRoute.component === undefined) {
                 const newElement = await newRoute.getComponent();
                 newRoute.component = createComponent(newElement, null);
@@ -63,10 +63,11 @@ export class Router extends Component<IRouterProps> {
             return newRoute.component as HTMLElement | JSX.Element;
         });
 
+        const newComponents = await Promise.all(newComponentsAsync);
+
         for (const component of newComponents) {
-            const c = await component;
-            if (c.parentElement === null || c.parentElement !== this) {
-                this.appendChild(c);
+            if (component.parentElement === null || component.parentElement !== this) {
+                this.appendChild(component);
             }
         }
     }
