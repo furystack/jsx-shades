@@ -1,6 +1,6 @@
 {
   "name": "@furystack/jsx-shades",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Lightweight react-style jsx component factory that produces native shadow DOM custom elements",
   "main": "dist/index.js",
   "files": [

@@ -2,6 +2,9 @@ import { Component } from "./Component";
 import { createComponent, ElementType } from "./ComponentFactory";
 import { LocationService } from "./LocationService";
 
+/**
+ * Model for custom route types
+ */
 export interface IRouteType {
     name: string;
     isAvailable: (path: string) => boolean;
@@ -9,11 +12,17 @@ export interface IRouteType {
     component?: JSX.Element | HTMLElement;
 }
 
+/**
+ * Props object for the Router component
+ */
 export interface IRouterProps {
     allowMultiple?: boolean;
     routes: IRouteType[];
 }
 
+/**
+ * Router component
+ */
 export class Router extends Component<IRouterProps> {
     // private readonly element = (<div className="router" ></div>);
     private lastLocation!: string;
