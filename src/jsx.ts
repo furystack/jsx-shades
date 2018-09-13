@@ -26,5 +26,7 @@ declare namespace JSX {
         a: DeepPartial<HTMLAnchorElement>;
         p: DeepPartial<HTMLParagraphElement>;
         style: DeepPartial<HTMLStyleElement>;
+        br: DeepPartial<HTMLBRElement>;
+        textarea: DeepPartial<HTMLTextAreaElement>;
     }
 }
