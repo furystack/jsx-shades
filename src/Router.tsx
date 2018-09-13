@@ -1,6 +1,6 @@
-import { Component } from "../render-engine/Component";
-import { ComponentFactory, ElementType } from "../render-engine/ComponentFactory";
-import { LocationService } from "../services/location";
+import { Component } from "./Component";
+import { createComponent, ElementType } from "./ComponentFactory";
+import { LocationService } from "./LocationService";
 
 export interface IRouteType {
     name: string;
@@ -20,7 +20,7 @@ export class Router extends Component<IRouterProps> {
     private lastRouteNames: string = "";
 
     constructor(public props: IRouterProps) {
-        super();
+        super(props);
         LocationService.OnStateChanged(() => this.onLocationChange());
     }
 
@@ -49,7 +49,7 @@ export class Router extends Component<IRouterProps> {
         const newComponents = newRoutes.map(async (newRoute) => {
             if (newRoute.component === undefined) {
                 const newElement = await newRoute.getComponent();
-                newRoute.component = ComponentFactory(newElement, null);
+                newRoute.component = createComponent(newElement, null);
             }
             return newRoute.component as HTMLElement | JSX.Element;
         });

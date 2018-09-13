@@ -12,7 +12,9 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "jsx": "react",
+    "jsxFactory": "createComponent",
   },
   "files": [
     "./src/index.ts"

@@ -1,4 +1,4 @@
-import "../render-engine/jsx";
+import "./jsx";
 
 /**
  * Service that observes the DOM and triggers callbacks (like attached / detached)
