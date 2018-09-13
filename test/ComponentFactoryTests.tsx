@@ -82,8 +82,6 @@ export const componentFactoryTests = describe("Component Factory", () => {
             const s = (props: { value: number }) => (<div>{props.value}</div>);
             const p = { value: 1 };
             const c = createComponent(s, p);
-            expect(c).to.be.instanceof(TestComponent);
-            expect((c as TestComponent).props).to.be.eq(p);
         });
     });
 });

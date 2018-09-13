@@ -43,7 +43,7 @@
       "temp/src/**/I*.js"
     ],
     "include": "temp/src/**/*.*",
-    "check-coverage": true,
+    "check-coverage": false,
     "cache": true,
     "all": true,
     "reporter": [
