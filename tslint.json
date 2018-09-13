@@ -1,0 +1,78 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "member-ordering": false,
+        "max-line-length": false,
+        "object-literal-sort-keys": [
+            false
+        ],
+        "no-unused-expression": [
+            true,
+            "allow-fast-null-checks"
+        ],
+        "variable-name": false,
+        "completed-docs": [
+            true,
+            {
+                "classes": {
+                    "visibilities": [
+                        "exported"
+                    ]
+                },
+                "enums": {
+                    "visibilities": [
+                        "exported"
+                    ]
+                },
+                "enum-members": {
+                    "visibilities": [
+                        "exported"
+                    ]
+                },
+                "functions": {
+                    "visibilities": [
+                        "exported"
+                    ]
+                },
+                "interfaces": {
+                    "visibilities": [
+                        "exported"
+                    ]
+                },
+                "properties": {
+                    "privacies": [
+                        "public",
+                        "protected"
+                    ]
+                },
+                "methods": {
+                    "privacies": [
+                        "public",
+                        "protected"
+                    ],
+                    "tags": {
+                        "content": {},
+                        "existence": [
+                            "inheritdoc"
+                        ]
+                    }
+                },
+                "types": {
+                    "visibilities": [
+                        "exported"
+                    ]
+                },
+                "variables": {
+                    "visibilities": [
+                        "exported"
+                    ]
+                }
+            }
+        ]
+    },
+    "rulesDirectory": []
+}

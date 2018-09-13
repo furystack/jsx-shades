@@ -1,0 +1,68 @@
+{
+  "name": "@furystack/jsx-shades",
+  "version": "1.0.0-alpha.1",
+  "description": "Lightweight react-style jsx component factory that produces native shadow DOM custom elements",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "src",
+    "test"
+  ],
+  "scripts": {
+    "precommit": "npm run test",
+    "commit": "git-cz",
+    "pretest": "npm run build:test",
+    "test": "rimraf coverage && nyc mocha -p tsconfig.test.json ./temp/test/index.js",
+    "build:test": "tslint --project tsconfig.test.json && rimraf temp && tsc -p tsconfig.test.json",
+    "prebuild": "tslint --project tsconfig.json",
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "prepublishOnly": "npm run test && npm run build",
+    "publish:development": "npm run build && npm t && npm run typedoc && npm publish --tag development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/furystack/jsx-shades.git"
+  },
+  "keywords": [
+    "JSX",
+    "Shadow DOM",
+    "Components",
+    "Native browser APIs"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "gallay.lajos@gmail.com",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/furystack/jsx-shades/issues"
+  },
+  "nyc": {
+    "exclude": [
+      "temp/test/**/*.*",
+      "temp/src/**/I*.js"
+    ],
+    "include": "temp/src/**/*.*",
+    "check-coverage": true,
+    "cache": true,
+    "all": true,
+    "reporter": [
+      "lcov",
+      "text-summary",
+      "json"
+    ]
+  },
+  "homepage": "https://github.com/furystack/jsx-shades",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  },
+  "typings": "./dist/index.d.ts"
+}
