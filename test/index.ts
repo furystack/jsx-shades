@@ -2,36 +2,39 @@
 
 // tslint:disable
 
-declare var global: any;
+declare let global: any
 
-global.HTMLElement = class {
-
-}
+global.HTMLElement = class {}
 
 global.MutationObserver = class implements MutationObserver {
-    disconnect(): void {
-    }
+  public disconnect(): void {
+    /** */
+  }
 
-    observe(target: Node, options: MutationObserverInit): void {
-    }
-    takeRecords(): MutationRecord[] {
-        throw new Error("Method not implemented.");
-    }
+  public observe(_target: Node, _options: MutationObserverInit): void {
+    /** */
+  }
+  public takeRecords(): MutationRecord[] {
+    throw new Error('Method not implemented.')
+  }
 }
 
-global.customElements = new class implements CustomElementRegistry {
-    private store = new Map<string, any>()
-    define(name: string, constructor: Function, options?: ElementDefinitionOptions): void {
-        this.store.set(name, constructor);
-    }
-    get(name: string) {
-        return this.store.get(name)
-    }
-    whenDefined(name: string): PromiseLike<void> {
-        throw new Error("Method not implemented.");
-    }
-}
+global.customElements = new (class implements CustomElementRegistry {
+  private store = new Map<string, any>()
+  public define(name: string, constructor: Function, _options?: ElementDefinitionOptions): void {
+    this.store.set(name, constructor)
+  }
+  public get(name: string) {
+    return this.store.get(name)
+  }
+  public whenDefined(_name: string): Promise<void> {
+    return Promise.reject('Method not implemented.')
+  }
+  public upgrade(_root: Node) {
+    /** */
+  }
+})()
 // tslint:enable
 
-export * from "./ComponentTests";
-export * from "./ComponentFactoryTests";
+export * from './ComponentTests'
+export * from './ComponentFactoryTests'

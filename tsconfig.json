@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
+    "pretty": true,
     "target": "es2015",
     "module": "commonjs",
+    "moduleResolution": "node",
     "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
+    "noEmitOnError": true,
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -13,10 +17,12 @@
     "alwaysStrict": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
     "jsx": "react",
-    "jsxFactory": "createComponent",
+    "jsxFactory": "createComponent"
   },
-  "files": [
-    "./src/index.ts"
-  ]
+  "files": ["./src/index.ts"]
 }

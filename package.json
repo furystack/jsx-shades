@@ -9,15 +9,11 @@
     "test"
   ],
   "scripts": {
-    "precommit": "npm run test",
-    "commit": "git-cz",
-    "pretest": "npm run build:test",
-    "test": "rimraf coverage && nyc mocha -p tsconfig.test.json ./temp/test/index.js",
-    "build:test": "tslint --project tsconfig.test.json && rimraf temp && tsc -p tsconfig.test.json",
-    "prebuild": "tslint --project tsconfig.json",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "build": "rimraf dist && tsc -p tsconfig.json",
     "prepublishOnly": "npm run test && npm run build",
-    "publish:development": "npm run build && npm t && npm run typedoc && npm publish --tag development"
+    "lint": "eslint . --ext .tsx,.ts --cache"
   },
   "repository": {
     "type": "git",
@@ -55,14 +51,79 @@
   "homepage": "https://github.com/furystack/jsx-shades",
   "dependencies": {},
   "devDependencies": {
-    "@types/chai": "^4.1.4",
-    "@types/mocha": "^5.2.5",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
-    "rimraf": "^2.6.2",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.3"
+    "@types/jest": "^24.0.18",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "rimraf": "^3.0.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
+    "eslint": "^6.5.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsdoc": "^15.8.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.3",
+    "prettier": "^1.17.1",
+    "ts-jest": "^24.0.2",
+    "tslib": "^1.9.3"
   },
-  "typings": "./dist/index.d.ts"
+  "typings": "./dist/index.d.ts",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext .tsx,.ts --cache --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>"
+    ],
+    "moduleNameMapper": {
+      "\\.css$": "<rootDir>/jest/cssTransform.js"
+    },
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest",
+      "^.+\\.css$": "<rootDir>/jest/cssTransform.js",
+      "^.+\\.(png|jpg|gif)$": "<rootDir>/jest/fileTransform.js"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx|js)",
+      "**/test/*.+(ts|tsx|js)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest/setup.js"
+    ],
+    "collectCoverageFrom": [
+      "**/packages/**/src/**/*.{ts,tsx}",
+      "!**/test/**/*.{ts,tsx}",
+      "!**/__tests__/**/*.{ts,tsx}",
+      "!**/*.d.{ts,tsx}",
+      "!**/node_modules/**",
+      "!**/index.ts",
+      "!**/example*.*",
+      "!**/Example*.*",
+      "!**/Example*/**/*.*"
+    ],
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
+  }
 }
